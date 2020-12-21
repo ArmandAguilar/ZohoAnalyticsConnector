@@ -167,3 +167,5 @@ osvenv/
 # myfiles
 .mypy_cache/
 config.py
+test.py
+TT.csv
