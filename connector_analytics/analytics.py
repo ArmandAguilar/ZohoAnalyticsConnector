@@ -247,3 +247,34 @@ class zohoConnect:
         except Exception as err:
             return json_return.append({'status':'Error', 'message':str(err)})
         return json_return
+    
+    def readData(self,tableURL,criteria=None):
+        """
+        @return: {}
+        """
+        json_return = []
+        try:
+            Conf = {}
+            Conf['ZOHO_ACTION'] = 'EXPORT'
+            Conf['ZOHO_OUTPUT_FORMAT'] = 'JSON',
+            Conf['ZOHO_ERROR_FORMAT'] = 'JSON',
+            Conf['ZOHO_ON_IMPORT_ERROR'] = 'ABORT'
+            Conf['ZOHO_API_VERSION'] = '1.0'
+            
+            if criteria != None:
+                Conf['ZOHO_CRITERIA'] = criteria
+            else:
+                json_return.append({'status': 'Error', 'message': str(err)})
+                
+            headers = {'Authorization': 'Zoho-oauthtoken ' + str(self.token)}
+            req_zoho = requests.post(tableURL, data=Conf, headers=headers)
+
+            if int(req_zoho.status_code) != 200:
+                json_return.append(
+                    {'status': 'Error', 'message': req_zoho.text})
+            else:
+                json_return.append({'status': 'Oka', 'message': req_zoho.text})
+
+        except expression as identifier:
+            return json_return.append({'status': 'Error', 'message': str(err)})
+        return json.dumps(json_return)

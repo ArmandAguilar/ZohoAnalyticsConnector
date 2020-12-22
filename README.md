@@ -42,7 +42,7 @@ class Config:
 ```python
 class  Config:
 	SERVERAUTH = 'https://accounts.zoho.com'
-	SERVERURL = 'https://analyticsapi.zoho.com/api/user@domain.com'
+	SERVERURL = 'https://analyticsapi.zoho.com/api/user@domain.com/table'
 	LOGINEMAILID = 'user@domain.com'
 	CLIENTID = '******'
 	CLIENTSECRET = '******'
@@ -92,8 +92,15 @@ delete = objZoho.deleteRow(tableURL=Config.SERVERURL,
 <p>&nbsp;</p>
 
 ## Work with multiple rows
+<p>&nbsp;</p>
 
 ### CVS File
+Use a simple cvs or format in a string to insert rows in the table of zoho in this example we used this files called users.cvs.
+
+- **APPEND** Appends the data into the table.
+- **TRUNCATEADD** - Deletes all exisiting rows in the table and adds the imported data as new entry.
+- **UPDATEADD** Updates the row if the mentioned column values are matched, else a new entry will be added.
+<p>&nbsp;</p>
 
 |ID|Name  |Country |
 |-|-|-|
@@ -103,16 +110,42 @@ delete = objZoho.deleteRow(tableURL=Config.SERVERURL,
 |4|User 4|USA|
 |  |  |
 
+<p>&nbsp;</p>
 
 ```python
-with open('files.csv', 'r') as f:
+with open('users.csv', 'r') as f:
 	data = f.read()
 	autoIdentify = "true"
 	onError = "ABORT"
 ```
 
 ### Add rows
+APPEND Appends the data into the table.
+
+**Tip**: ImportData can be data of real csv file or string with the format cvs.
+
 ```python
 objZoho.importData(tableURL= Config.SERVERURL,
 						importType='APPEND',
 						importData=data, Identify=False)
+```
+
+### Udpate rows
+Updates the row if the mentioned column values are matched, else a new entry will be added.
+
+**Tip** : Columns is the criterian for make the MATCHING, it can be one or more values separate by coma.
+```python
+objZoho.importData(tableURL=Config.SERVERURL, 
+                        importType='UPDATEADD',
+                        importData=data,
+                        Identify=False,
+                       Columns='Id')
+```
+
+### Truncateadd rows
+Deletes all exisiting rows in the table and adds the imported data as new entry.
+```python
+objZoho.importData(tableURL=Config.SERVERURL,
+                    importType='TRUNCATEADD',
+                    importData=data)
+```
