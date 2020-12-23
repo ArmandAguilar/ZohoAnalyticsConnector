@@ -53,15 +53,15 @@ class zohoConnect:
                 req_zoho = requests.post(tableURL, data=Conf, headers=headers)
             
                 if int(req_zoho.status_code) != 200:
-                    json_return.append({'status': 'Error', 'message': req_zoho.text})
+                    json_return.append({'status': 'Error', 'message': json.loads(req_zoho.text)})
                 else:
-                    json_return.append({'status': 'Oka', 'message': req_zoho.text})
+                    json_return.append({'status': 'Oka', 'message': json.loads(req_zoho.text)})
             else:
                 json_return.append({'status': 'Error', 'message': 'columnsValues is empty'})
 
         except Exception as err:
             json_return.append({'status': 'Error', 'message': str(err)})
-        return json_return
+        return json.dumps(json_return)
 
     def updateRow(self, tableURL, updateInfo=None, conditionalInfo=None, Conf=None):
         """
@@ -103,17 +103,17 @@ class zohoConnect:
 
                 if int(req_zoho.status_code) != 200:
                     json_return.append(
-                        {'status': 'Error', 'message': req_zoho.text})
+                        {'status': 'Error', 'message': json.loads(req_zoho.text)})
                 else:
                     json_return.append(
-                        {'status': 'Oka', 'message': req_zoho.text})
+                        {'status': 'Oka', 'message': json.loads(req_zoho.text)})
             else:
                 json_return.append(
                     {'status': 'Error', 'message': 'columnsValues is empty'})
 
         except Exception as err:
             json_return.append({'status': 'Error', 'message': str(err)})
-        return json_return
+        return json.dumps(json_return)
 
     def deleteRow(self, tableURL, conditionalInfo=None, Conf=None):
         """
@@ -149,17 +149,17 @@ class zohoConnect:
 
                 if int(req_zoho.status_code) != 200:
                     json_return.append(
-                        {'status': 'Error', 'message': req_zoho.text})
+                        {'status': 'Error', 'message': json.loads(req_zoho.text)})
                 else:
                     json_return.append(
-                        {'status': 'Oka', 'message': req_zoho.text})
+                        {'status': 'Oka', 'message': json.loads(req_zoho.text)})
             else:
                 json_return.append(
                     {'status': 'Error', 'message': 'conditionalInfo is empty'})
 
         except Exception as err:
             json_return.append({'status': 'Error', 'message': str(err)})
-        return json_return
+        return json.dumps(json_return)
 
 
     def ImportRows(self, tableURL, importType, importData, Identify="TRUE", Delimiter=0, Quoted=0, Columns='', Conf=None):
@@ -240,13 +240,13 @@ class zohoConnect:
                 tableURL, data=Conf, headers=headers)
 
             if int(req_zoho.status_code) != 200:
-                json_return.append({'status':'Error', 'message':req_zoho.text})
+                json_return.append({'status':'Error', 'message':json.loads(req_zoho.text)})
             else:
-                json_return.append({'status':'Oka', 'message':req_zoho.text})
+                json_return.append({'status':'Oka', 'message':json.loads(req_zoho.text)})
 
         except Exception as err:
             return json_return.append({'status':'Error', 'message':str(err)})
-        return json_return
+        return json.dumps(json_return)
     
     def readData(self,tableURL,criteria=None):
         """
@@ -271,10 +271,43 @@ class zohoConnect:
 
             if int(req_zoho.status_code) != 200:
                 json_return.append(
-                    {'status': 'Error', 'message': req_zoho.text})
+                    {'status': 'Error', 'message': json.loads(req_zoho.text)})
             else:
-                json_return.append({'status': 'Oka', 'message': req_zoho.text})
+                json_return.append({'status': 'Oka', 'message': json.loads(req_zoho.text)})
 
-        except expression as identifier:
+        except Exception as err:
             return json_return.append({'status': 'Error', 'message': str(err)})
         return json.dumps(json_return)
+
+
+    def readQuery(self, tableURL, queryStr=None):
+        """
+        @return: {}
+        """
+        json_return = []
+        try:
+            Conf = {}
+            Conf['ZOHO_ACTION'] = 'EXPORT'
+            Conf['ZOHO_OUTPUT_FORMAT'] = 'JSON',
+            Conf['ZOHO_ERROR_FORMAT'] = 'JSON',
+            Conf['ZOHO_ON_IMPORT_ERROR'] = 'ABORT'
+            Conf['ZOHO_API_VERSION'] = '1.0'
+            
+            if queryStr != None:
+                Conf['ZOHO_SQLQUERY'] = queryStr
+                headers = {'Authorization': 'Zoho-oauthtoken ' + str(self.token)}
+                req_zoho = requests.post(tableURL, data=Conf, headers=headers)
+
+                if int(req_zoho.status_code) != 200:
+                    json_return.append(
+                        {'status': 'Error', 'message': json.loads(req_zoho.text)})
+                else:
+                    json_return.append(
+                        {'status': 'Oka', 'message': json.loads(req_zoho.text)})
+            else:
+                json_return.append({'status': 'Error', 'message': 'query cannot be empty'})
+
+        except Exception as err:
+            return json_return.append({'status': 'Error', 'message': str(err)})
+        return json.dumps(json_return)
+
