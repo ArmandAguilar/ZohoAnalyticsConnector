@@ -208,7 +208,7 @@ objZoho.readQuery(tableURL=Config.SERVERURL,queryStr=sql_query)
 
 ```
 
-## Buy me a beer
+## 🍺 Buy me a beer
 
 |BTC|ETH|
 |--|--|
