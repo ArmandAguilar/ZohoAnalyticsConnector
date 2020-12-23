@@ -1,6 +1,12 @@
 # Zoho Analytics Connector
 [![Supported Versions](https://img.shields.io/pypi/pyversions/requests.svg)]()
 
+## Install
+
+```python
+pip install .
+```
+
 ## Authentication
 
 Zoho Analytics REST API supports OAuth 2.0 protocol to authorize and authenticate API calls. Follow the steps listed here to use OAuth 2.0 protocol in Zoho Analytics APIs.
@@ -13,6 +19,12 @@ Zoho Analytics REST API supports OAuth 2.0 protocol to authorize and authenticat
 <b>The scope for full access</b>
 
     ZohoAnalytics.fullaccess.all
+
+## Import
+
+```python
+from connector_analytics.analytics import zohoConnect
+```
 
 ## Config File
 
