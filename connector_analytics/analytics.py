@@ -250,6 +250,12 @@ class zohoConnect:
     
     def readData(self,tableURL,criteria=None):
         """
+        @param tableURL: The URI of the table. See U{https://<ZohoAnalytics_Server_URI>/api/<OwnerEmail>/<WorkspaceName>/<TableName>}.
+        @type tableURL:string
+
+        @param criteria: Used to make match example Id='1'.
+        @type criteria:string
+
         @return: {}
         """
         json_return = []
@@ -282,6 +288,12 @@ class zohoConnect:
 
     def readQuery(self, tableURL, queryStr=None):
         """
+        @param tableURL: The URI of the table. See U{https://<ZohoAnalytics_Server_URI>/api/<OwnerEmail>/<WorkspaceName>/<TableName>}.
+        @type tableURL:string
+
+        @param queryStr: Simple SQL.
+        @type queryStr:string
+
         @return: {}
         """
         json_return = []
