@@ -1,4 +1,4 @@
-# Zoho AnalyticsConnector
+# Zoho Analytics Connector
 [![Supported Versions](https://img.shields.io/pypi/pyversions/requests.svg)]()
 
 ## Authentication
@@ -56,9 +56,9 @@ class  Config:
 ```python
 
 objZoho = zohoConnect(srvUrl=Config.SERVERAUTH,
-						tokenToRefresh=Config.REFRESHTOKEN,
-						clientId=Config.CLIENTID,
-						clientSecret=Config.CLIENTSECRET)
+					tokenToRefresh=Config.REFRESHTOKEN,
+					clientId=Config.CLIENTID,
+					clientSecret=Config.CLIENTSECRET)
 
 ```
 ## Add Row
@@ -87,8 +87,8 @@ payload = {
 	'Country':'UK'}
 
 update = objZoho.updateRow(tableURL=Config.SERVERURL,
-							updateInfo=payload,
-							conditionalInfo=conditional)
+						updateInfo=payload,
+						conditionalInfo=conditional)
 
 ```
 
@@ -140,22 +140,22 @@ APPEND Appends the data into the table.
 ```python
 
 objZoho.importData(tableURL= Config.SERVERURL,
-						importType='APPEND',
-						importData=data, Identify=False)
+					importType='APPEND',
+					importData=data, Identify=False)
 
 ```
 
-### Udpate rows
+### Update rows
 Updates the row if the mentioned column values are matched, else a new entry will be added.
 
 **Tip** : Columns is the criterian for make the MATCHING, it can be one or more values separate by coma.
 ```python
 
 objZoho.importData(tableURL=Config.SERVERURL, 
-                        importType='UPDATEADD',
-                        importData=data,
-                        Identify=False,
-                       Columns='Id')
+                    importType='UPDATEADD',
+                    importData=data,
+                    Identify=False,
+                    Columns='Id')
 
 ```
 
@@ -164,8 +164,8 @@ Deletes all exisiting rows in the table and adds the imported data as new entry.
 ```python
 
 objZoho.importData(tableURL=Config.SERVERURL,
-                    importType='TRUNCATEADD',
-                    importData=data)
+                importType='TRUNCATEADD',
+                importData=data)
 
 ```
 
