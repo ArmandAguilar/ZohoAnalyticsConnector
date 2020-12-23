@@ -210,11 +210,17 @@ objZoho.readQuery(tableURL=Config.SERVERURL,queryStr=sql_query)
 
 ## Buy me a beer
 
-| BTC |ETH | BAT |
-|--|--|--|
-|<center><img src="http://www.armando-aguilar.com/wp-content/uploads/2020/12/BTC_ADDR.jpeg" width="150"></center>|<center><img src="http://www.armando-aguilar.com/wp-content/uploads/2020/12/ETH_ADDR.jpeg" width="150"></center>|<center><img src="http://www.armando-aguilar.com/wp-content/uploads/2020/12/BAT_ADDR.jpg" width="150"></center>|
-| 1JDA4DEkVnB9rvLgLD5Xe9jfU2pJtnCZiG |0x951a9909a77308bb6e2402c939451d70ea45d3ab | 0xafd4c24f6e10b2c029c748d3ecaff8cb762ea51d |
+|BTC|ETH|
+|--|--|
+|<img src="http://www.armando-aguilar.com/wp-content/uploads/2020/12/BTC_ADDR.jpeg" width="150">|<img src="http://www.armando-aguilar.com/wp-content/uploads/2020/12/ETH_ADDR.jpeg" width="150">|
+|1JDA4DEkVnB9rvLgLD5Xe9jfU2pJtnCZiG|0x951a9909a77308bb6e2402c939451d70ea45d3ab|
 
+<p>&nbsp;</p>
+
+|BAT||
+|--|--|
+|<img  src="http://www.armando-aguilar.com/wp-content/uploads/2020/12/BAT_ADDR.jpg"  width="150">||
+|0xafd4c24f6e10b2c029c748d3ecaff8cb762ea51d||
 
 
 
