@@ -5,6 +5,8 @@
 ## Install
 
 ```python
+pip install requests
+pip install sphinx
 pip install .
 ```
 
@@ -164,7 +166,7 @@ Updates the row if the mentioned column values are matched, else a new entry wil
 **Tip** : Columns is the criterian for make the MATCHING, it can be one or more values separate by coma.
 ```python
 
-objZoho.importData(tableURL=Config.SERVERURL, 
+objZoho.ImportRows(tableURL=Config.SERVERURL, 
                     importType='UPDATEADD',
                     importData=data,
                     Identify=False,

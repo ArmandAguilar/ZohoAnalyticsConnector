@@ -314,8 +314,8 @@ class zohoConnect:
                     json_return.append(
                         {'status': 'Error', 'message': json.loads(req_zoho.text)})
                 else:
-                    json_return.append(
-                        {'status': 'Oka', 'message': json.loads(req_zoho.text)})
+                    dt = json.loads(req_zoho.text)
+                    json_return.append({'status': 'Oka', 'response': dt['response']['result']})
             else:
                 json_return.append({'status': 'Error', 'message': 'query cannot be empty'})
 
