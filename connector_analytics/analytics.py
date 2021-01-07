@@ -294,13 +294,15 @@ class zohoConnect:
         @param queryStr: Simple SQL.
         @type queryStr:string
 
-        @return: {}
+        @return: {JSON}
         """
         json_return = []
         try:
             Conf = {}
             Conf['ZOHO_ACTION'] = 'EXPORT'
             Conf['ZOHO_OUTPUT_FORMAT'] = 'JSON',
+            Conf['ZOHO_VALID_JSON'] = 'true',
+            Conf['KEY_VALUE_FORMAT'] = 'true',
             Conf['ZOHO_ERROR_FORMAT'] = 'JSON',
             Conf['ZOHO_ON_IMPORT_ERROR'] = 'ABORT'
             Conf['ZOHO_API_VERSION'] = '1.0'
@@ -315,11 +317,11 @@ class zohoConnect:
                         {'status': 'Error', 'message': json.loads(req_zoho.text)})
                 else:
                     dt = json.loads(req_zoho.text)
-                    json_return = dt['response']['result']['rows']
+                    json_return = dt
             else:
                 json_return.append({'status': 'Error', 'message': 'query cannot be empty'})
 
         except Exception as err:
             return json_return.append({'status': 'Error', 'message': str(err)})
-        return json.dumps(json_return)
+        return json_return
 
