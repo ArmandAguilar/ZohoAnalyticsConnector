@@ -150,11 +150,11 @@ with open('users.csv', 'r') as f:
 ### Add rows
 APPEND Appends the data into the table.
 
-**Tip**: ImportData can be data of real csv file or string with the format cvs.
+**Tip**: ImportRows can be data of real csv file or string with the format cvs.
 
 ```python
 
-objZoho.importData(tableURL= Config.SERVERURL,
+objZoho.ImportRows(tableURL= Config.SERVERURL,
 					importType='APPEND',
 					importData=data, Identify=False)
 
@@ -178,7 +178,7 @@ objZoho.ImportRows(tableURL=Config.SERVERURL,
 Deletes all exisiting rows in the table and adds the imported data as new entry.
 ```python
 
-objZoho.importData(tableURL=Config.SERVERURL,
+objZoho.ImportRows(tableURL=Config.SERVERURL,
                 importType='TRUNCATEADD',
                 importData=data)
 
