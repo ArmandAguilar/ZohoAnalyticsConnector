@@ -48,7 +48,7 @@ class zohoConnectV2:
             json_return.append({'status': 'Error', 'message': str(err)})
         return json.dumps(json_return)
 
-    def updateRow(self, srvUrl='', workspace='', view_id='', orgid='', criteria='', deleteAllRows='false', columns={}):
+    def updateRow(self, srvUrl='', workspace='', view_id='', orgid='', criteria='', columns=None, updateAllRows='false'):
         """
         Update rows in the specified table.
 
@@ -67,21 +67,39 @@ class zohoConnectV2:
         @type:str
         Sample: "\"<table-name>\".\"<column-name>\"='value'"
 
-        @param:deleteAllRows
-        @type:str
-        Sample:true/false	
-        To delete all the rows in the table.
-
         @param:columns
         @type:list
         Sample:{"columnName1":"value1","columnName2":"value2"}	Columns JSON object.
+
+        @param: updateAllRows
+        @type:str
+         true/false
         Return {}
         """
         json_return = []
+        _CONFIG_ = {}
         try:
-            pass
+            # Create the config
+            if srvUrl != '' and workspace != '' and view_id != '' and orgid != '' and criteria != '' and columns != None:
+                if len(columns) >= 1:
+                    headers = {'ZANALYTICS-ORGID': orgid,
+                               'Authorization': 'Zoho-oauthtoken ' + str(self.token)}
+                    _CONFIG_['columns'] = columns
+                    _CONFIG_['criteria'] = criteria
+                    _CONFIG_['updateAllRows'] = updateAllRows
+                    # Send The Request
+                    URL_API = "{0}/restapi/v2/workspaces/{1}/views/{2}/rows?CONFIG={3}".format(
+                        srvUrl, workspace, view_id, json.dumps(_CONFIG_))
+                    req_zoho = requests.put(URL_API, headers=headers)
+                    json_return.append({'message': req_zoho.text})
+                else:
+                    json_return.append(
+                        {'message': 'Filed columns or critaria has a bad config.'})
+            else:
+                json_return.append(
+                    {'message': 'I need all params'})
         except Exception as err:
-            json_return.append({'status': 'Error', 'message': str(err)})
+            json_return.append({'message': str(err)})
         return json.dumps(json_return)
 
     def deleteRow(self, srvUrl='', workspace='', view_id='', orgid='', criteria='', deleteAllRows='false'):
@@ -284,7 +302,8 @@ class zohoConnectV2:
                         for item in _CONFIG_:
                             if _CONFIG_[item] != '' and _CONFIG_[item] != None and len(_CONFIG_[item]) > 0:
                                 _CONFIG_FILTER_[item] = _CONFIG_[item]
-
+                        # Delete Exclusive of CSV
+                        print(_CONFIG_FILTER_)
                         # Send The Request
                         URL_API = "{0}/restapi/v2/workspaces/{1}/views/{2}/data?CONFIG={3}".format(
                             srvUrl, workspace, view_id, json.dumps(_CONFIG_FILTER_))

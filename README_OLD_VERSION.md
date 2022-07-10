@@ -1,4 +1,4 @@
-# Zoho Analytics Connector v2
+# Zoho Analytics Connector
 [![Supported Versions](https://img.shields.io/pypi/pyversions/requests.svg)]()
 [![License](https://img.shields.io/npm/l/express.svg)]()
 
@@ -26,7 +26,7 @@ Zoho Analytics REST API supports OAuth 2.0 protocol to authorize and authenticat
 ## Import
 
 ```python
-from connector_analytics.analytics import zohoConnectV2
+from connector_analytics.analytics import zohoConnect
 ```
 
 ## Config File
@@ -78,10 +78,6 @@ objZoho = zohoConnect(srvUrl=Config.SERVERAUTH,
 ```
 ## Add Row
 
-**Tip** : Where are workspace and view_id ? check the url of your table
-https://analytics.zoho.com/workspace/<workspace_id>/view/<view_id>
-orgid is the organization id check you setting in zoho
-
 ```python
 
 payload = {
@@ -90,8 +86,7 @@ payload = {
 	'Cell':'52-55555-555',
 	'Country':'CDMEX'}
 	
-url = 'https://analyticsapi.zoho.com'
-objZoho.addRow(srvUrl=url, workspace='000000001', view_id='0000001', orgid='000001', columns=payload)
+objZoho.addRow(tableURL=Config.SERVERURL,columnsValues=payload)
 
 ```
 
