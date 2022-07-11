@@ -42,8 +42,22 @@ class zohoConnectV2:
         Return {}
         """
         json_return = []
+        _CONFIG_ = {}
         try:
-            pass
+            if srvUrl != '' and workspace != '' and view_id != '' and orgid != '' and columns != None:
+                if len(columns) >= 1:
+                    headers = {'ZANALYTICS-ORGID': orgid,
+                               'Authorization': 'Zoho-oauthtoken ' + str(self.token)}
+                    _CONFIG_['columns'] = columns
+                    # Send The Request
+                    URL_API = "{0}/restapi/v2/workspaces/{1}/views/{2}/rows?CONFIG={3}".format(
+                        srvUrl, workspace, view_id, json.dumps(_CONFIG_))
+                    req_zoho = requests.post(URL_API, headers=headers)
+                    json_return.append({'message': req_zoho.text})
+                else:
+                    json_return.append(
+                        {'message': 'Filed columns or critaria has a bad config.'})
+
         except Exception as err:
             json_return.append({'status': 'Error', 'message': str(err)})
         return json.dumps(json_return)
@@ -129,18 +143,22 @@ class zohoConnectV2:
         Return {}
         """
         json_return = []
+        _CONFIG_ = {}
         try:
             if srvUrl != '' and workspace != '' and view_id != '' and orgid != '' and criteria != '':
-                headers = {'ZANALYTICS-ORGID': orgid,
-                           'Authorization': 'Zoho-oauthtoken ' + str(self.token)}
+                if len(criteria) >= 1:
+                    headers = {'ZANALYTICS-ORGID': orgid,
+                               'Authorization': 'Zoho-oauthtoken ' + str(self.token)}
 
-                _CONFIG_ = {"criteria": criteria}
-                URL_API = "{0}/restapi/v2/workspaces/{1}/views/{2}/rows?CONFIG={3}".format(
-                    srvUrl, workspace, view_id, json.dumps(_CONFIG_))
+                    _CONFIG_['criteria'] = criteria
+                    URL_API = "{0}/restapi/v2/workspaces/{1}/views/{2}/rows?CONFIG={3}".format(
+                        srvUrl, workspace, view_id, json.dumps(_CONFIG_))
 
-                req_zoho = requests.delete(URL_API, headers=headers)
-                json_return.append({'message': str(req_zoho.text)})
-
+                    req_zoho = requests.delete(URL_API, headers=headers)
+                    json_return.append({'message': str(req_zoho.text)})
+                else:
+                    json_return.append(
+                        {'message': 'problems with the citerian param'})
             else:
                 json_return.append(
                     {'message': 'Some file can not be empty [srvUrl,workspace,view_id,orgid,criteria ]'})
@@ -171,9 +189,9 @@ class zohoConnectV2:
         @param: importType The type of import.
         @type:str
         Can be one of
-         1. APPEND
-         2. TRUNCATEADD
-         3. UPDATEADD
+         1. APPEND .- Appends the data into the table.
+         2. TRUNCATEADD .- Deletes all exisiting rows in the table and adds the imported data as new entry.
+         3. UPDATEADD .- Updates the row if the mentioned column values are matched, else a new entry will be added.
 
         @param: fileType
         @type:str
@@ -302,8 +320,6 @@ class zohoConnectV2:
                         for item in _CONFIG_:
                             if _CONFIG_[item] != '' and _CONFIG_[item] != None and len(_CONFIG_[item]) > 0:
                                 _CONFIG_FILTER_[item] = _CONFIG_[item]
-                        # Delete Exclusive of CSV
-                        print(_CONFIG_FILTER_)
                         # Send The Request
                         URL_API = "{0}/restapi/v2/workspaces/{1}/views/{2}/data?CONFIG={3}".format(
                             srvUrl, workspace, view_id, json.dumps(_CONFIG_FILTER_))

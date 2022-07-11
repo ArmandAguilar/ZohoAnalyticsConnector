@@ -2,6 +2,8 @@
 [![Supported Versions](https://img.shields.io/pypi/pyversions/requests.svg)]()
 [![License](https://img.shields.io/npm/l/express.svg)]()
 
+[Old version](README_OLD_VERSION.md)
+
 ## Install
 
 ```python
@@ -84,40 +86,58 @@ orgid is the organization id check you setting in zoho
 
 ```python
 
-payload = {
+columns = {
 	'Id':'1',
 	'Name':'Armando Aguilar',
 	'Cell':'52-55555-555',
 	'Country':'CDMEX'}
 	
 url = 'https://analyticsapi.zoho.com'
-objZoho.addRow(srvUrl=url, workspace='000000001', view_id='0000001', orgid='000001', columns=payload)
+objZoho.addRow(srvUrl=url,
+                    workspace='51001910',
+                    view_id='5100191000',
+                    orgid='99999',
+                    columns=columns)
 
 ```
 
 ## Update Row
 
+**Tip** : Where are workspace and view_id ? check the url of your table
+https://analytics.zoho.com/workspace/<workspace_id>/view/<view_id>
+orgid is the organization id check you setting in zoho
+
 ```python
 
-conditional = 'Id=1'
+criteria = '\"users\".\"Id\"=\'1\''
 
-payload = {
-	'Name':'Armando Aguilar L.',
-	'Cell':'52-895578-6789',
-	'Country':'UK'}
+columns = {
+    'Cell':'52-6666-666',
+	'Country':'California'
+}
 
-update = objZoho.updateRow(tableURL=Config.SERVERURL,
-						updateInfo=payload,
-						conditionalInfo=conditional)
+update = objZoho.updateRow(srvUrl='https://analyticsapi.zoho.com',
+                         workspace='3100191',
+                         view_id='310019',
+                         orgid='5987',
+                         criteria=criteria,
+                         columns=columns)
 
 ```
 
 ## Delete row
+**Tip** : Where are workspace and view_id ? check the url of your table
+https://analytics.zoho.com/workspace/<workspace_id>/view/<view_id>
+orgid is the organization id check you setting in zoho
 ```python
 
-conditional = 'Id=1'
-delete = objZoho.deleteRow(tableURL=Config.SERVERURL,
-							conditionalInfo=conditional)
+criteria = '"users"."Id"=4'
+delete = objZoho2.deleteRow(srvUrl='https://analyticsapi.zoho.com',
+                         workspace='3100191,
+                         view_id='310019',
+                         orgid='5987',
+                         criteria=criteria,
+                         deleteAllRows='true')
 
 ```
 <p>&nbsp;</p>
@@ -133,7 +153,7 @@ Use a simple cvs or format in a string to insert rows in the table of zoho in th
 - **UPDATEADD** Updates the row if the mentioned column values are matched, else a new entry will be added.
 <p>&nbsp;</p>
 
-|ID|Name  |Country |
+|Id|Name  |Country |
 |-|-|-|
 |1|User 1|MX|
 |2|User 2|CAD|
@@ -159,75 +179,56 @@ APPEND Appends the data into the table.
 
 ```python
 
-objZoho.ImportRows(tableURL= Config.SERVERURL,
-					importType='APPEND',
-					importData=data, Identify=False)
+objZoho.importRows(srvUrl='https://analyticsapi.zoho.com',
+    workspace='4100191',
+    view_id='4100191000', 
+    data=data, 
+    importType='APPEND', 
+    orgid='897665555',
+    autoIdentify='true',
+    delimiter='1')
 
 ```
 
 ### Update rows
-Updates the row if the mentioned column values are matched, else a new entry will be added.
 
-**Tip** : Columns is the criterian for make the MATCHING, it can be one or more values separate by coma.
+
+**Tip** : matchingColumns is the criterian for make the MATCHING, it can be one or more values separate by coma.
 ```python
 
-objZoho.ImportRows(tableURL=Config.SERVERURL, 
-                    importType='UPDATEADD',
-                    importData=data,
-                    Identify=False,
-                    Columns='Id')
+columns = {'id','Name','Country'}
+objZoho.importRows(srvUrl='https://analyticsapi.zoho.com',
+    workspace='4100191',
+    view_id='4100191000', 
+    data=data, 
+    importType='UPDATEADD', 
+    orgid='897665555',
+    autoIdentify='true',
+    matchingColumns=columns)
 
 ```
 
-### Truncateadd rows
-Deletes all exisiting rows in the table and adds the imported data as new entry.
-```python
-
-objZoho.ImportRows(tableURL=Config.SERVERURL,
-                importType='TRUNCATEADD',
-                importData=data)
-
-```
-
-## Read Data
-
-<p>&nbsp;</p>
-
-### Criteria field
-The criteria field is the way to make match in the table.
+### Truncat rows
 
 ```python
 
-conditional = 'Id=1'
-
-objZoho.readData(tableURL=Config.SERVERURL,criteria=conditional)
-
-```
-
-### SQL RUN
-Literal SQL Query can be used as criteria.Export using joining tables and specific columns can be done using.
-
-```python
-
-sql_query = 'SELECT \"Id\",\"Name\" FROM users Where  \"Id\" = \'1\''
-
-objZoho.readQuery(tableURL=Config.SERVERURL,queryStr=sql_query)
+objZoho.importRows(srvUrl='https://analyticsapi.zoho.com',
+    workspace='4100191',
+    view_id='4100191000', 
+    data=data, 
+    importType='TRUNCATEADD', 
+    orgid='897665555',
+    autoIdentify='true')
 
 ```
 
 ## 🍺 Buy me a beer
 
-|BTC|ETH|
+|BTC|LTC|
 |--|--|
-|<img src="http://www.armando-aguilar.com/wp-content/uploads/2020/12/BTC_ADDR.jpeg" width="150">|<img src="http://www.armando-aguilar.com/wp-content/uploads/2020/12/ETH_ADDR.jpeg" width="150">|
-|1JDA4DEkVnB9rvLgLD5Xe9jfU2pJtnCZiG|0x951a9909a77308bb6e2402c939451d70ea45d3ab|
+|<img src="http://armando-aguilar.com/wp-content/uploads/2022/07/wallet_btc.png" width="150">|<img src="http://armando-aguilar.com/wp-content/uploads/2022/07/wallet_ltc.png" width="150">|
+|1JDA4DEkVnB9rvLgLD5Xe9jfU2pJtnCZiG|LhBrMcs7i3mD2wjiUv3KGtx9eEQeyBE4Dg|
 
 <p>&nbsp;</p>
-
-|BAT||
-|--|--|
-|<img  src="http://www.armando-aguilar.com/wp-content/uploads/2020/12/BAT_ADDR.jpg"  width="150">||
-|0xafd4c24f6e10b2c029c748d3ecaff8cb762ea51d||
-
 
 

@@ -212,17 +212,11 @@ objZoho.readQuery(tableURL=Config.SERVERURL,queryStr=sql_query)
 
 ## 🍺 Buy me a beer
 
-|BTC|ETH|
+|BTC|LTC|
 |--|--|
-|<img src="http://www.armando-aguilar.com/wp-content/uploads/2020/12/BTC_ADDR.jpeg" width="150">|<img src="http://www.armando-aguilar.com/wp-content/uploads/2020/12/ETH_ADDR.jpeg" width="150">|
-|1JDA4DEkVnB9rvLgLD5Xe9jfU2pJtnCZiG|0x951a9909a77308bb6e2402c939451d70ea45d3ab|
+|<img src="http://armando-aguilar.com/wp-content/uploads/2022/07/wallet_btc.png" width="150">|<img src="http://armando-aguilar.com/wp-content/uploads/2022/07/wallet_ltc.png" width="150">|
+|1JDA4DEkVnB9rvLgLD5Xe9jfU2pJtnCZiG|LhBrMcs7i3mD2wjiUv3KGtx9eEQeyBE4Dg|
 
 <p>&nbsp;</p>
-
-|BAT||
-|--|--|
-|<img  src="http://www.armando-aguilar.com/wp-content/uploads/2020/12/BAT_ADDR.jpg"  width="150">||
-|0xafd4c24f6e10b2c029c748d3ecaff8cb762ea51d||
-
 
 
