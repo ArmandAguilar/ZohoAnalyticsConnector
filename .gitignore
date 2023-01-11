@@ -152,7 +152,8 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-osvenv/
+osvenvzoho/
+osvenvzoho
 
 # Spyder project settings
 .spyderproject
