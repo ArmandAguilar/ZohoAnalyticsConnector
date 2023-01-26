@@ -179,9 +179,6 @@ class zohoConnectV2:
         @param:workspace 2100191000004922089
         @type:str
 
-        @param:workspace 2100191000016682019111
-        @type:str
-
         @param:data 
         @type:file or data
         FILE - The file to be imported
@@ -339,3 +336,49 @@ class zohoConnectV2:
         except Exception as err:
             return json_return.append({'message': str(err)})
         return json.dumps(json_return)
+    
+    def zohoQuery(self, srvUrl='',orgid='', workspace='', table_name='',email='', sql_query=''):
+        """
+        Zoho Analytics has implemented the Zoho CloudSQL technology 
+        as an extension to its HTTP Web API. Using the HTTP API, users
+        can query Zoho Analytics Workspace by providing the SQL queries.
+
+        @param:srvUrl : URL https://<ZohoAnalytics_Server_URI>/
+        @type:str
+
+        @param:workspace 2100191000004922089
+        @type:str
+
+        @param:email some@domain.com
+        @type:str
+
+        @param:table_name users
+        @type:str
+
+        @param: sql_query
+        @type:str
+
+        """
+        json_return = []
+        try:
+            if srvUrl != '' and workspace != '' and sql_query != '':
+                # Send The Request
+
+                headers = {'ZANALYTICS-ORGID': orgid,
+                           'Authorization': 'Zoho-oauthtoken ' + str(self.token)}
+
+                URL_API_V2 ="{0}/api/{1}/{2}/{3}?ZOHO_ACTION=EXPORT&ZOHO_OUTPUT_FORMAT=JSON&ZOHO_ERROR_FORMAT=JSON&ZOHO_API_VERSION=1.0&ZOHO_SQLQUERY={4}".format(
+                    srvUrl,
+                    email,
+                    workspace,
+                    table_name,
+                    sql_query)
+
+                req_zoho = requests.get(URL_API_V2,  headers=headers)
+                json_return = json.loads(req_zoho.text)
+
+            else:
+                json_return = {'error':'check the params of def we need all..'}
+        except Exception as err:
+            return json_return.append({'message': str(err)})
+        return json_return

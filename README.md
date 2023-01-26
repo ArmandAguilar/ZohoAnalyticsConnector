@@ -71,8 +71,8 @@ class  Config:
 ## Initialize Zoho Object
 
 ```python
-
-objZoho = zohoConnect(srvUrl=Config.SERVERAUTH,
+        
+objZoho = zohoConnectV2(srvUrl=Config.SERVERAUTH,
 					tokenToRefresh=Config.REFRESHTOKEN,
 					clientId=Config.CLIENTID,
 					clientSecret=Config.CLIENTSECRET)
@@ -219,6 +219,22 @@ objZoho.importRows(srvUrl='https://analyticsapi.zoho.com',
     importType='TRUNCATEADD', 
     orgid='897665555',
     autoIdentify='true')
+
+```
+
+## SQL IN  ANALYTICS ZOHO
+
+**Tip** : When you write the sentences SQL you need add %20 in the blank spaces.
+
+```python
+
+sql_query = "SELECT%20id,name,country%20FROM%20dusers%20WHERE%20country='MX'"
+data = objZoho.zohoQuery(srvUrl='https://analyticsapi.zoho.com',
+                                                orgid='000000', 
+                                                workspace='workspace name', 
+                                                table_name='users',
+                                                email='user@domain.com', 
+                                                sql_query=sql_query)
 
 ```
 
